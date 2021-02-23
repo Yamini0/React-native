@@ -30,8 +30,9 @@ _Softwares':_
    - **SDK Update Sites:** default
 
 Download all the following packages.(Drink Coffee, as it will take alot of time).
+
 :raised_hands: All the packages installed succesfully.
-Now its time to Confire the environment variables.
+Now its time to Configure the environment variables.
 
 ## Configure Environment Variables
 
@@ -55,7 +56,9 @@ Search for setting Enviornment variable and it will open a system property windo
 
 **Configure AVD Manager**
 With Emulator we will be able to run your application on a simulator or a virtual device
-Go and watch the short video how to add Virtual device through ADK Mangaer.[watch](https://www.youtube.com/watch?v=HdARMMo0uEY)
+Go and watch the short video how to add Virtual device through ADK Mangaer.
+
+[watch](https://www.youtube.com/watch?v=HdARMMo0uEY)
 
 To run the Emulator we have to enable our **Virtualization** from the _BIOS setting_.
 
