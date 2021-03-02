@@ -1,0 +1,62 @@
+# What is Hooks?
+
+Hooks are a new addition in React. They let you use state and other React features without writing a class. It mainly uses to handle the state and side effects in react functional component. React Hooks are a way to use stateful functions inside a functional component. Hooks don’t work inside classes — they let you use React without classesReact provides a few built-in Hooks like useState and useEffect.
+
+- It Enforces best practices
+- Easy to under understand
+- Easy to test
+- It increases the performance and so on.
+
+# Why we use React Hook?
+
+The first main reason is the Introduce state in a functional component. You know that the states cannot be used in functions. But with hooks, we can use states.
+
+Another reason is the handle side effect in react component. It means, now you can use newly introduced state such as `useEffect`.
+But do you know for some scenarios, there are 3 places where react fails. While Reuse logic between components
+
+- Has Huge components
+- Confusing
+
+## useEffect Hook And useState
+
+We can say that useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
+By default, useEffect runs both after the first render and after every update.
+We can return a function(could be an arrow function) from our effect for adding and removing subscriptions.
+Here we can set the states by `-const [count, setCount] = useState(0);`
+
+`const [count, setCount] `: the current state and a function that updates it.
+
+`useState(0):` Here we initialize the count as 0.
+
+    ```
+    function FriendStatusWithCounter(props) {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        document.title = `You clicked ${count} times`;
+    });
+    const [isOnline, setIsOnline] = useState(null);
+    useEffect(() => {
+        function handleStatusChange(status) {
+        setIsOnline(status.isOnline);
+        }
+        ChatAPI.subscribeToFriendStatus(props.friend.id,
+    handleStatusChange);
+    return () => {
+        ChatAPI.unsubscribeFromFriendStatus(props.friend.id,             handleStatusChange);
+        };
+    });
+    if (isOnline === null) {
+        return 'Loading...';
+    }
+    return isOnline ? 'Online' : 'Offline';
+    }
+    ```
+
+## Rules of Hooks:
+
+- Only Call Hooks at the Top Level
+- Don’t call Hooks inside loops, conditions, or nested functions. Instead, always use Hooks at the top level of your React function. By following this rule, you ensure that Hooks are called in the same order each time a component renders. That’s what allows React to correctly preserve the state of Hooks between multiple useState and useEffect calls. (If you’re curious, we’ll explain this in depth below.)
+- Only Call Hooks from React Functions
+- Don’t call Hooks from regular JavaScript functions. Instead, you can:
+- Call Hooks from React function components.
+- Call Hooks from custom Hooks
