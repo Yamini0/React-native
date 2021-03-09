@@ -52,6 +52,58 @@ Here we can set the states by `-const [count, setCount] = useState(0);`
     }
     ```
 
+## useCallback :
+
+useCallback hooks returns a `memorized` callback.
+useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders.
+
+    ```
+    const memoizedCallback = useCallback(
+    () => {
+        doSomething(a, b);
+    },
+    [a, b],
+    );
+    ```
+
+Make sure you add that array as a second parameter to useCallback() with the state needed.
+
+**useEffect vs useCallback:**
+The problem of using useEffect is that any time the counter is updated, all the functions are re-created again.
+Now if you use usecallback to click one of the counters, only the functions related to the state that changes are going to be re-instantiated.
+
+## useMemo:
+
+useMemo hooks returns `memorized `value.
+useMemo will only recompute the memoized value when one of the dependencies has changed. This optimization helps to avoid expensive calculations on every render.
+
+Remember that the function passed to useMemo runs during rendering. Don’t do anything there that you wouldn’t normally do while rendering.
+
+You may rely on useMemo as a performance optimization, not as a semantic guarantee. In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without useMemo — and then add it to optimize performance.
+
+    ```
+    const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+    ```
+
+**useMemo and useCallback:**
+`useCallback(fn, deps) is equivalent to useMemo(() => fn, deps)`.
+
+The useCallback hook is similar to useMemo, but it returns a memoized function, while useMemo has a function that returns a value.
+
+If your dependencies array is empty, there is no possibility of memoization, and it will compute a new value on every render. You could use the useRef hook in that instance. The advantage useMemo offers over useRef is a re-memoizing if the dependencies change.
+
+You won’t want to have useMemo fire off any side effects or any asynchronous calls. In those instances, you should use useEffect.
+
+## useRef:
+
+useRef returns a mutable ref object whose .current property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component.
+
+useRef is like a “box” that can hold a mutable value in its .current property.
+useRef() is useful for more than the ref attribute. It’s handy for keeping any mutable value around similar to how you’d use instance fields in classes.
+This works because useRef() creates a plain JavaScript object. The only difference between useRef() and creating a {current: ...} object yourself is that useRef will give you the same ref object on every render.
+
+Keep in mind that useRef doesn’t notify you when its content changes. Mutating the .current property doesn’t cause a re-render. If you want to run some code when React attaches or detaches a ref to a DOM node, you may want to use a callback ref instead.
+
 ## Rules of Hooks:
 
 - Only Call Hooks at the Top Level
